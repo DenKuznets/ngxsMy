@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, withLatestFrom } from 'rxjs';
 import { Select, Store } from '@ngxs/store';
-import { AppState, ChangeText } from './app.state';
+import { AppState } from './app.state';
+import { ChangeText } from './app.actions';
+// import { ChangeText } from './app.actions';
 
 @Component({
   selector: 'app-root',
@@ -48,5 +50,11 @@ export class AppComponent implements OnInit {
   changeText() {
     console.log('change text btn');
     this.store.dispatch(new ChangeText());
+    this.state$.subscribe({
+      next: (x) => {
+        // console.log(x);
+        this.text = x.text;
+      },
+    });
   }
 }
